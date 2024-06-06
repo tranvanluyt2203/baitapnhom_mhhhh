@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cesium 3D Polygon Example</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.83/Build/Cesium/Cesium.js"></script>
+    <style>
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <script>
+        // Khởi tạo một instance mới của Cesium Viewer
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+                url: 'https://a.tile.openstreetmap.org/'
+            }),
+            baseLayerPicker: false,
+            geocoder: false,
+            navigationHelpButton: false,
+            fullscreenButton: false,
+            sceneMode: Cesium.SceneMode.SCENE3D
+        });
+
+        // Tạo một đa giác từ các điểm được chỉ định
+        var polygon = viewer.entities.add({
+            polygon: {
+                hierarchy: new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray([
+                    108.2170376031658, 16.06039789221846,
+                    108.21722758585335, 16.060417209928755,
+                    108.217276800464, 16.059981478207664,
+                    108.21708683589036, 16.05996974976543,
+                    108.2170376031658, 16.06039789221846
+                ])),
+                material: Cesium.Color.RED.withAlpha(0.5),
+                height: 0,
+                extrudedHeight: 1000
+            }
+        });
+        var polygon1 = viewer.entities.add({
+            polygon: {
+                hierarchy: new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray([
+                    108.21659041852749, 16.05980538567837, 108.21668066149783, 16.059798358702878, 108.21667187062612, 16.05973083331001, 108.21664755766413, 16.05973847556255, 108.21663727136693, 16.059702828381894, 108.21658706157893, 16.059712044906803, 108.21658386732203, 16.059688525112577, 108.21654936002928, 16.05969998420091, 108.21659041852749, 16.05980538567837
+                ])),
+                material: Cesium.Color.RED.withAlpha(0.5),
+                height: 0,
+                extrudedHeight: 1000
+            }
+        });
+
+        // Thiết lập tâm nhìn tại tọa độ cụ thể
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(108.2170376031658, 16.06039789221846, 500), // Tọa độ và độ cao
+            orientation: {
+                heading: Cesium.Math.toRadians(0), // Góc quay
+                pitch: Cesium.Math.toRadians(-90), // Góc nghiêng
+                roll: Cesium.Math.toRadians(0) // Góc lăn
+            }
+        });
+    </script>
+</body>
+</html>
